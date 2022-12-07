@@ -66,6 +66,7 @@ const popup   = document.querySelector(".popup")
 const kruskal = document.querySelector("button")
 const numbers = document.querySelectorAll(".numbers .number")
 const reveal  = document.querySelector(".result")
+const cost    = document.querySelector(".cost")
 
 infoBtn.addEventListener("click", ()=> popup.style.display = "flex")
 quitbtn.addEventListener("click", ()=> popup.style.display = "none")
@@ -112,7 +113,9 @@ kruskal.addEventListener("click",()=> {
     g.addEdge(weights[9],4,6)
     g.addEdge(weights[9],6,4)
     const result = g.kruskal()
+    let total = 0
     result.forEach(flow => {
+        let w = flow[0]
         let src = flow[1]
         let dest = flow[2]
         switch(src) {
@@ -156,8 +159,9 @@ kruskal.addEventListener("click",()=> {
                 break                       
         }
         reveal.innerHTML += `${src}->${dest} <br>` 
+        total += parseInt(w) 
     })
-
+    cost.innerText = `Total Cost: ${total}`
     kruskal.disabled = true
 })
 
